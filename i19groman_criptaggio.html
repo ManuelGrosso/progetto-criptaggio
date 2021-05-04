@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>i19groman_criptaggio.html</title>
+        <link rel="icon" href="i1agromanfav.ico" type="image/x-icon">
+        <meta cahrset="UTF-8">
+        <meta name="description" content="file base">
+        <meta name="keywords" contenent="HTML,CSS,XML,JavaScript">
+        <meta name="author" content="Manuel Grosso">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">	
+        <!--data creazione 24.9.19-->
+        <!--browser firefox-->
+        <!--os windows 10-->
+        <!--ultima modifica 20.10.19-->
+        <style>
+            
+            input{
+                width: 500px;
+                height: 100px;
+            }
+            
+        </style>
+    </head>
+     
+    <body>
+            <p id="check"></p>
+            <p id="check2"></p>
+            <form>
+                <label>Stringa da criptare</label>
+                <input type="text" id="in" onkeyup="criptare(), orario(), decriptare()">
+                <br>
+                <br>
+                <label>Stringa criptata</label>
+                <input type="text" id="to" disabled>
+                <br>
+                <br>
+                <label>Check</label>
+                <input type="text" id="decriptar" disabled>
+            </form>
+    </body>
+    
+    <script>
+        
+        function criptare(){
+            var d = new Date();
+            var ore=d.getHours();
+            var alfabeto=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+            var strIn= document.getElementById("in").value;
+            var strTo="";
+            strIn=strIn.toLowerCase();
+            var i;
+            var numberKey=ore;
+            //document.getElementById("check2").value=numberKey;
+            for(i=0;i<strIn.length;i++) {
+                var char=strIn.charAt(i);
+                if(char==" "){
+                    strTo+=" ";
+                }else if((/[a-z]/).test(char)){
+                    var pos=alfabeto.indexOf(char);
+                    if(pos+numberKey>=26){
+                        numberKey=numberKey-26;
+                    }
+                    strTo+=alfabeto[pos+numberKey];
+                    numberKey=pos+1;
+                }else{
+                    strTo+=char;
+                }
+               
+            }
+            document.getElementById("to").value=strTo;
+               
+        }
+        
+        //devo leggere la nuova stringa
+        function decriptare(){
+            var d = new Date();
+            var ore=d.getHours();
+            var numberKey=ore;
+            var alfabeto=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+            var strCriptata=document.getElementById("to").value
+            var strDecriptata="";
+            for(var i=0;i<strCriptata.length;i++) {
+                var char=strCriptata.charAt(i);//a
+                if((/[a-z]/).test(char)){
+                    var pos=alfabeto.indexOf(char);//0
+                    if(pos-numberKey<0){//0-13
+                        numberKey=numberKey-26;
+                    }
+                    strDecriptata+=alfabeto[pos-numberKey];
+                    numberKey=pos-numberKey+1;
+                    console.log(pos-numberKey+1);
+                }else{
+                    strDecriptata+=char;
+                }
+            }
+            document.getElementById("decriptar").value=strDecriptata;
+        }
+        
+        function orario(){
+            var d = new Date();
+            var ore=d.getHours();
+            var min=d.getMinutes();
+            var sec=d.getSeconds();
+            var orario=ore+":"+min+":"+sec;
+            document.getElementById("check").innerHTML="Scritto alle "+ orario;
+        }
+        
+    </script>
+
+</html>
