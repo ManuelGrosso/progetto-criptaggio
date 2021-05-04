@@ -22,8 +22,7 @@
     </head>
      
     <body>
-            <p id="check"></p>
-            <p id="check2"></p>
+            <p id="ora"></p>
             <form>
                 <label>Stringa da criptare</label>
                 <input type="text" id="in" onkeyup="criptare(), orario(), decriptare()">
@@ -34,7 +33,7 @@
                 <br>
                 <br>
                 <label>Check</label>
-                <input type="text" id="decriptar" disabled>
+                <input type="text" id="decriptato" disabled>
             </form>
     </body>
     
@@ -49,7 +48,7 @@
             strIn=strIn.toLowerCase();
             var i;
             var numberKey=ore;
-            //document.getElementById("check2").value=numberKey;
+            
             for(i=0;i<strIn.length;i++) {
                 var char=strIn.charAt(i);
                 if(char==" "){
@@ -69,7 +68,7 @@
             document.getElementById("to").value=strTo;       
         }
         
-        //devo leggere la nuova stringa
+    
         function decriptare(){
             var d = new Date();
             var ore=d.getHours();
@@ -91,7 +90,7 @@
                     strDecriptata+=char;
                 }
             }
-            document.getElementById("decriptar").value=strDecriptata;
+            document.getElementById("decriptato").value=strDecriptata;
         }
         
         function orario(){
@@ -100,7 +99,7 @@
             var min=d.getMinutes();
             var sec=d.getSeconds();
             var orario=ore+":"+min+":"+sec;
-            document.getElementById("check").innerHTML="Scritto alle "+ orario;
+            document.getElementById("ora").innerHTML="Scritto alle "+ orario;
         }
         
     </script>
